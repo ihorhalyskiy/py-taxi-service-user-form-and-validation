@@ -34,7 +34,7 @@ class DriverCreateForm(UserCreationForm):
 
     class Meta:
         model = Driver
-        fields = "__all__"
+        fields = ("username", "password1", "password2", "license_number")
 
 
 class DriverLicenseUpdateForm(UserChangeForm):

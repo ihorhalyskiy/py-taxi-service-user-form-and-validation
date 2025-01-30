@@ -65,11 +65,12 @@ class CarDetailView(LoginRequiredMixin, generic.DetailView):
 
 @login_required
 def car_driver_add(request, pk):
-    if request.method == "POST":
-        car = get_object_or_404(Car, pk=pk)
+    car = get_object_or_404(Car, pk=pk)
 
-        if request.user not in car.drivers.all():
-            car.drivers.add(request.user)
+    if request.method == "POST":
+        if request.user.has_perm("taxi.can_add_driver"):
+            if request.user not in car.drivers.all():
+                car.drivers.add(request.user)
 
     return redirect("taxi:car-detail", pk=pk)
 
